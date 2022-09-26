@@ -102,6 +102,7 @@ function clearDisplay() {
 async function onLoadMore() {
   await apiService.getImages().then(data => insertImages(data.hits));
   gallerySimpleLightbox.refresh();
+   slowlyScroll();
 };
 
 function loadMoreHidden() {
@@ -110,4 +111,15 @@ function loadMoreHidden() {
 
 function loadMoreVisibility() {
   refs.loadBtnEl.classList.remove('is-hidden');
+};
+
+function slowlyScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 };
